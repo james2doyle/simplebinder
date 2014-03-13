@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <base href="http://localhost:8888/simplebinder/">
+  <title>SimpleBinder</title>
+  <meta name="description" content="simplebinder is a zero dependency one-way databinder for javascript">
+  <meta name="keywords" content="databinding, javascript, simple, input, change, data, one-way, two-way">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href='http://fonts.googleapis.com/css?family=Averia+Sans+Libre:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.min.css" media="screen" />
+  <!--[if IE]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="center">
+      <h1 class="main-title">Simple Data Binder</h1>
+      <small><a href="https://github.com/james2doyle/simplebinder" title="SimpleBinder Github Page">SimpleBinder On Github</a></small>
+      <hr>
+    </div>
+    <div class="grid">
+      <div class="col-1-3">
+        <h3>What is this?!</h3>
+        <p>This is a <em>zero dependency</em> library to do simple one-way data binding.</p>
+      </div>
+      <div class="col-1-3">
+        <h3>Why does this exists?!</h3>
+        <p>Well, I wanted a way to do data binding without having to include angular.js or jQuery.</p>
+      </div>
+      <div class="col-1-3">
+        <h3>How do I use this?!</h3>
+        <p>Just include simplebinder.js in your page, and copypasta some <a href="#examples">examples</a>.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="grid">
+      <div class="col-1-3">
+        <h2 id="demos">Demo</h2>
+        <p>This is a dump of all the inputs that simplebinder supports.</p>
+        <p><strong>Note:</strong> there is no checkbox or file input.</p>
+      </div>
+      <div class="col-2-3 demo-dump">
+        <p data-model="number">number</p>
+        <input type="number" data-controller="number" />
+        <input type="text" data-controller="number">
+        <p data-model="select">select</p>
+        <select name="changed" data-controller="select">
+          <option value="choice_1">First Choice</option>
+          <option value="choice_2">Second Choice</option>
+        </select>
+        <p data-model="area">area</p>
+        <p data-model="area">area</p>
+        <textarea data-controller="area"></textarea>
+        <input type="text" data-controller="area">
+        <p data-model="range">range</p>
+        <input type="range" data-controller="range">
+        <p data-model="radio">radio</p>
+        <input type="radio" data-controller="radio" value="1" name="radio">
+        <input type="radio" data-controller="radio" value="2" name="radio">
+        <input type="radio" data-controller="radio" value="3" name="radio">
+        <h4>These inputs have to be <strong>valid</strong> in order to trigger their events.</h4>
+        <p data-model="time">time</p>
+        <input type="time" data-controller="time">
+        <p data-model="date">date</p>
+        <input type="date" data-controller="date">
+        <p data-model="color">color</p>
+        <input type="color" data-controller="color" />
+        <p data-model="datetime">datetime</p>
+        <input type="datetime" data-controller="datetime" />
+        <p data-model="datetime-local">datetime-local</p>
+        <input type="datetime-local" data-controller="datetime-local" />
+        <p data-model="week">week</p>
+        <input type="week" data-controller="week" />
+      </div>
+    </div>
+    <div class="grid" id="examples">
+      <div class="col-1-3">
+        <h2>Examples</h2>
+        <p>Here are some of the methods and functions that are part of every simplebinder.</p>
+      </div>
+      <div class="col-2-3 demo-dump">
+        <p>Markup required for a simplebinder element.</p>
+        <pre><code class="xml">&lt;p data-model="number"&gt;number&lt;/p&gt;
+&lt;input type="number" data-controller="number" /&gt;</code></pre>
+        <p>As you can see, you <strong>must</strong> have a <em>data-model</em> and a <em>data-controller</em> set on your items. Models are like the destination for the data-controllers value.</p>
+        <p>Create a new simplebinder element.</p>
+        <pre><code class="javascript">var sb = SimpleBinder('modelname', function(input, model) {
+  console.log(input.value);
+});</code></pre>
+        <p>Destroy a simplebinder element.</p>
+        <pre><code class="javascript">sb.destroy();</code></pre>
+        <p>Add a new controller to a simplebinder element.</p>
+        <pre><code class="javascript">sb.addController('new-controller-name');</code></pre>
+        <p>Add a new model to a simplebinder element.</p>
+        <pre><code class="javascript">sb.addModel('new-model-name');</code></pre>
+        <p>See all models on a simplebinder element. Returns an arrary of strings with querySelectorAll queries.</p>
+        <pre><code class="javascript">sb.models;</code></pre>
+        <p>See all controllers on a simplebinder element. Returns an arrary of strings with querySelectorAll queries.</p>
+        <pre><code class="javascript">sb.controllers;</code></pre>
+        <p>Custom events and attributes</p>
+        <pre><code class="javascript">var sb = SimpleBinder('modelname', {
+  watch: 'value', // what controller attribute are we watching?
+  change: 'className' // the attribute to change on the model, default = textContent
+}, function(input, model) {
+  console.log(input.value);
+});</code></pre>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-1-3">
+        <h3>Who made this?!</h3>
+        <p>I did. You can find me at these fine locations.</p>
+        <ul>
+          <li><a target="_blank" href="https://twitter.com/james2doyle">Twitter @james2doyle</a></li>
+          <li><a target="_blank" href="https://github.com/james2doyle">Github @james2doyle</a></li>
+          <li><a target="_blank" href="http://warpaintmedia.com/">WARPAINT Media</a></li>
+        </ul>
+      </div>
+      <div class="col-2-3">
+        <h3>Source, Issues, Supported Browsers</h3>
+        <p>This library uses <a href="http://caniuse.com/#feat=queryselector" target="_blank">querySelectorAll</a>, so if you don't have that... well you're fucked.</p>
+        <p>If you find an issue, or want to see the source, check out the github page.</p>
+        <a href="https://github.com/james2doyle/simplebinder" title="SimpleBinder Github Page">SimpleBinder On Github</a>
+      </div>
+    </div>
+  </div>
+  <script src="js/script.min.js"></script>
+</body>
+</html>
