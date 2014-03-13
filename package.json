@@ -1,0 +1,29 @@
+{
+  "name": "simplebinder",
+  "version": "1.0.0",
+  "description": "simplebinder is a zero dependency one-way databinder for javascript.",
+  "homepage": "https://james2doyle.github.io/simplebinder",
+  "author": {
+    "name": "James Doyle",
+    "email": "james2doyle@gmail.com",
+    "url": "http://ohdoylerules.com/"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "grunt": "~0.4.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-imagemin": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-sass": "*",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-autoprefixer": "~0.3.0"
+  }
+}
