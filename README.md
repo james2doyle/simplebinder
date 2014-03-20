@@ -1,7 +1,9 @@
 simplebinder
 ============
 
-simplebinder is a zero dependency one-way databinder for javascript
+simplebinder is a zero dependency one-way databinder for javascript.
+
+![simplebiner git](https://raw.githubusercontent.com/james2doyle/simplebinder/master/simplebinder.gif)
 
 ### Demos, Examples, and Info
 
