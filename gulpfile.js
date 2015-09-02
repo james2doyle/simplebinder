@@ -39,10 +39,10 @@ gulp.task('concat', function() {
 });
 
 gulp.task('cssmin', function () {
-  gulp.src('css/style.css')
+  gulp.src(['css/*.css', '!css/style.min.css'])
   .pipe(cssmin())
-  .pipe(header(banner, data))
   .pipe(concat('style.min.css'))
+  .pipe(header(banner, data))
   .pipe(gulp.dest('css/'));
 });
 
@@ -66,10 +66,10 @@ gulp.task('autoprefixer', function () {
 });
 
 gulp.task('uglify', function() {
-  gulp.src(['simplebinder.js', 'js/*.js'])
+  gulp.src(['js/*.js', '!js/script.min.js'])
   .pipe(uglify())
-  .pipe(header(banner, data))
   .pipe(concat('script.min.js'))
+  .pipe(header(banner, data))
   .pipe(gulp.dest('js/'));
 });
 
@@ -83,6 +83,7 @@ gulp.task('watch', function() {
   gulp.watch('**/*.{php,html}', ['reload']);
   gulp.watch('src/styles/*.scss', ['sass']);
   gulp.watch('src/scripts/*.js', ['concat']);
+  gulp.watch('simplebinder.js', ['reload']);
 });
 
 gulp.task('build', function() {
