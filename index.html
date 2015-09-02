@@ -57,6 +57,9 @@
         <input type="radio" data-controller="radio" value="1" name="radio">
         <input type="radio" data-controller="radio" value="2" name="radio">
         <input type="radio" data-controller="radio" value="3" name="radio">
+        <p data-model="checkbox">checkbox</p>
+        <p><small>only handles unique names</small></p>
+        <input type="checkbox" data-controller="checkbox" value="my-checkbox" name="checkbox">
         <h4>These inputs have to be <strong>valid</strong> in order to trigger their events.</h4>
         <p data-model="time">time</p>
         <input type="time" data-controller="time">
@@ -123,6 +126,7 @@
       </div>
     </div>
   </div>
+  <script src="simplebinder.js"></script>
   <script src="js/script.min.js"></script>
 </body>
 </html>

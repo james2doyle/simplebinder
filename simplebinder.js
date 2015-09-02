@@ -1,8 +1,8 @@
 (function () {
   window.SimpleBinder = function(a, b, c) {
     // are we listening for something else?
-    var watch = (typeof(b) === 'object') ? b.watch: 'value',
-    change = (typeof(b) === 'object') ? b.change: 'textContent',
+    var watch = (typeof(b) === 'object' && b.watch) ? b.watch: 'value',
+    change = (typeof(b) === 'object' && b.change) ? b.change: 'textContent',
     // last arg is callback
     callback = (typeof(b) === 'function') ? b: c,
     targets, inputs, il, tl, evt, loadedModels = [], loadedControllers = [];
@@ -37,16 +37,16 @@
     function makeInputs() {
       for (var i = 0; i < il; i++) {
         // special inputs
-        evt = (inputs[i].type === 'radio' || inputs[i].type.indexOf('select') !== -1) ? 'change': 'input';
+        evt = (inputs[i].type === 'radio' || inputs[i].type === 'checkbox' || inputs[i].type.indexOf('select') !== -1) ? 'change': 'input';
         inputs[i].addEventListener(evt, handleChange);
       }
     }
 
     function handleChange() {
-      if (this.type !== 'checkbox') {
-        for (var i = 0; i < tl; i++) {
-          targets[i][change] = this[watch];
-        }
+      for (var i = 0; i < tl; i++) {
+        targets[i][change] = this[watch].toString();
+      }
+      if (callback && typeof(callback) === 'function') {
         callback(this, targets[i]);
       }
     }
