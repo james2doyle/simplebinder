@@ -1,6 +1,6 @@
 {
   "name": "simplebinder",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "simplebinder is a zero dependency one-way databinder for javascript.",
   "homepage": "https://james2doyle.github.io/simplebinder",
   "author": {
