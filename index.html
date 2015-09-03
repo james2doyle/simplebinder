@@ -85,7 +85,7 @@
         <input type="text" data-controller="item1" class="groups">
         <p data-model="item2">item2</p>
         <input type="text" data-controller="item2" class="groups">
-        <p data-model="item3">item3</p>
+        <p data-model="item3" data-default="Inline Default">item3</p>
         <input type="text" data-controller="item3" class="groups">
       </div>
     </div>
@@ -116,10 +116,16 @@
         <p>Custom events and attributes</p>
         <pre><code class="javascript">var sb = SimpleBinder('modelname', {
   watch: 'value', // what controller attribute are we watching?
-  change: 'className' // the attribute to change on the model, default = textContent
+  change: 'className', // the attribute to change on the model, default = textContent
+  defaultValue: 'I Am Empty' // the value to put in the model when the controller value is empty
 }, function(input, model) {
   console.log(input.value);
 });</code></pre>
+        <h3>Inline Default Values</h3>
+        <p>You can set a default value directly on the model for when the controller value is empty.</p>
+        <pre><code class="xml">&lt;p data-model="default-100" data-default="Please Enter A Value"&gt;100&lt;/p&gt;
+&lt;input type="text" data-controller="default-100" /&gt;
+</code></pre>
         <h3>Multiple Elements</h3>
         <p>Markup required for multiple simplebinder elements.</p>
         <pre><code class="xml">&lt;p data-model="number"&gt;number&lt;/p&gt;

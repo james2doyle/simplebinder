@@ -8,6 +8,7 @@
       // are we listening for something else?
       var watch = (typeof(b) === 'object' && b.watch) ? b.watch: 'value',
       change = (typeof(b) === 'object' && b.change) ? b.change: 'textContent',
+      defaultValue = (typeof(b) === 'object' && b.defaultValue) ? b.defaultValue: false,
       // last arg is callback
       callback = (typeof(b) === 'function') ? b: c,
       targets, inputs, il, tl, evt, loadedModels = [], loadedControllers = [];
@@ -54,7 +55,18 @@
 
       function handleChange() {
         for (var i = 0; i < tl; i++) {
-          targets[i][change] = this[watch].toString();
+          var value = this[watch].toString().trim();
+          if (value.length === 0 && typeof(targets[i].dataset.default) !== 'undefined') {
+            targets[i][change] = targets[i].dataset.default;
+          } else if (!defaultValue) {
+            targets[i][change] = value;
+          } else {
+            if (value.length > 0) {
+              targets[i][change] = value;
+            } else {
+              targets[i][change] = defaultValue;
+            }
+          }
         }
         if (callback && typeof(callback) === 'function') {
           callback(this, targets[i]);

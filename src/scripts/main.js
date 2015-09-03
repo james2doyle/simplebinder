@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   var collection = SimpleBinder(
     document.getElementsByClassName('groups'),
+    { defaultValue: 'Default Value' },
     function(e, t) {
       console.log(e.value);
     });
