@@ -77,6 +77,17 @@
         <p data-model="week">week</p>
         <input type="week" data-controller="week" />
       </div>
+      <div class="col-1-3">
+        <h2 id="demos">Grouped Items</h2>
+      </div>
+      <div class="col-2-3 demo-dump">
+        <p data-model="item1">item1</p>
+        <input type="text" data-controller="item1" class="groups">
+        <p data-model="item2">item2</p>
+        <input type="text" data-controller="item2" class="groups">
+        <p data-model="item3">item3</p>
+        <input type="text" data-controller="item3" class="groups">
+      </div>
     </div>
     <div class="grid" id="examples">
       <div class="col-1-3">
@@ -108,6 +119,20 @@
   change: 'className' // the attribute to change on the model, default = textContent
 }, function(input, model) {
   console.log(input.value);
+});</code></pre>
+        <h3>Multiple Elements</h3>
+        <p>Markup required for multiple simplebinder elements.</p>
+        <pre><code class="xml">&lt;p data-model="number"&gt;number&lt;/p&gt;
+&lt;input type="text" data-controller="number" class="collection" /&gt;
+&lt;p data-model="another-number"&gt;another-number&lt;/p&gt;
+&lt;input type="text" data-controller="another-number" class="collection" /&gt;
+&lt;p data-model="more-number"&gt;more-number&lt;/p&gt;
+&lt;input type="text" data-controller="more-number" class="collection" /&gt;</code></pre>
+        <p>You can pass an array of elements to the SimpleBinder function to create multiple elements at the same time. In this example, we passed a NodeList of objects with the class of <code>collection</code>.</p>
+        <pre><code class="javascript">var collection = SimpleBinder(
+document.getElementsByClassName('collection'),
+function(e, t) {
+  console.log(e.value);
 });</code></pre>
       </div>
     </div>

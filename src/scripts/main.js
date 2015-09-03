@@ -10,4 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var checkbox = SimpleBinder('checked', {
     watch: 'checked' // what controller attribute are we watching?
   });
+  var collection = SimpleBinder(
+    document.getElementsByClassName('groups'),
+    function(e, t) {
+      console.log(e.value);
+    });
 });

@@ -1,76 +1,87 @@
 (function () {
-  window.SimpleBinder = function(a, b, c) {
-    // are we listening for something else?
-    var watch = (typeof(b) === 'object' && b.watch) ? b.watch: 'value',
-    change = (typeof(b) === 'object' && b.change) ? b.change: 'textContent',
-    // last arg is callback
-    callback = (typeof(b) === 'function') ? b: c,
-    targets, inputs, il, tl, evt, loadedModels = [], loadedControllers = [];
-
-    var binder = function() {
-      // create items
-      newController(a);
-      newModel(a);
-      makeInputs();
-    };
-
-    function rakeControllers(arr) {
-      inputs = document.querySelectorAll(loadedControllers.join(','));
-      il = inputs.length;
+  window.SimpleBinder = function(collection, b, c) {
+    // wrap `collection` in array
+    if (typeof(collection) === 'string') {
+      collection = [collection];
     }
+    Array.prototype.slice.call(collection, 0).forEach(function(a) {
+      // are we listening for something else?
+      var watch = (typeof(b) === 'object' && b.watch) ? b.watch: 'value',
+      change = (typeof(b) === 'object' && b.change) ? b.change: 'textContent',
+      // last arg is callback
+      callback = (typeof(b) === 'function') ? b: c,
+      targets, inputs, il, tl, evt, loadedModels = [], loadedControllers = [];
 
-    function newController(contr) {
-      loadedControllers.push('[data-controller="' + contr + '"]');
-      rakeControllers();
-    }
+      var binder = function() {
+        // create items
+        if (typeof(a) === 'string') {
+          newController(a);
+          newModel(a);
+        } else {
+          newController(a.dataset.controller);
+          newModel(a.dataset.controller);
+        }
+        makeInputs();
+      };
 
-    function rakeModels(arr) {
-      targets = document.querySelectorAll(loadedModels.join(','));
-      tl = targets.length;
-    }
-
-    function newModel(modl) {
-      loadedModels.push('[data-model="' + modl + '"]');
-      rakeModels();
-    }
-
-    function makeInputs() {
-      for (var i = 0; i < il; i++) {
-        // special inputs
-        evt = (inputs[i].type === 'radio' || inputs[i].type === 'checkbox' || inputs[i].type.indexOf('select') !== -1) ? 'change': 'input';
-        inputs[i].addEventListener(evt, handleChange);
+      function rakeControllers() {
+        inputs = document.querySelectorAll(loadedControllers.join(','));
+        il = inputs.length;
       }
-    }
 
-    function handleChange() {
-      for (var i = 0; i < tl; i++) {
-        targets[i][change] = this[watch].toString();
+      function newController(contr) {
+        loadedControllers.push('[data-controller="' + contr + '"]');
+        rakeControllers();
       }
-      if (callback && typeof(callback) === 'function') {
-        callback(this, targets[i]);
+
+      function rakeModels() {
+        targets = document.querySelectorAll(loadedModels.join(','));
+        tl = targets.length;
       }
-    }
 
-    binder.prototype.controllers = loadedControllers;
-
-    binder.prototype.models = loadedModels;
-
-    binder.prototype.destroy = function() {
-      for (var i = 0; i < il; i++) {
-        inputs[i].removeEventListener(evt, handleChange);
+      function newModel(modl) {
+        loadedModels.push('[data-model="' + modl + '"]');
+        rakeModels();
       }
-    };
 
-    binder.prototype.addModel = function(nmodel) {
-      newModel(nmodel);
-      makeInputs();
-    };
+      function makeInputs() {
+        for (var i = 0; i < il; i++) {
+          // special inputs
+          evt = (inputs[i].type === 'radio' || inputs[i].type === 'checkbox' || inputs[i].type.indexOf('select') !== -1) ? 'change': 'input';
+          inputs[i].addEventListener(evt, handleChange);
+        }
+      }
 
-    binder.prototype.addController = function(ncontroller) {
-      newController(ncontroller);
-      makeInputs();
-    };
+      function handleChange() {
+        for (var i = 0; i < tl; i++) {
+          targets[i][change] = this[watch].toString();
+        }
+        if (callback && typeof(callback) === 'function') {
+          callback(this, targets[i]);
+        }
+      }
 
-    return new binder;
+      binder.prototype.controllers = loadedControllers;
+
+      binder.prototype.models = loadedModels;
+
+      binder.prototype.destroy = function() {
+        for (var i = 0; i < il; i++) {
+          inputs[i].removeEventListener(evt, handleChange);
+        }
+      };
+
+      binder.prototype.addModel = function(nmodel) {
+        newModel(nmodel);
+        makeInputs();
+      };
+
+      binder.prototype.addController = function(ncontroller) {
+        newController(ncontroller);
+        makeInputs();
+      };
+
+      return new binder;
+    });
   };
 })();
